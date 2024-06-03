@@ -21,6 +21,7 @@ To run the python scripts, ensure that you have the following prerequisites set 
 3. Required Python packages installed. You can install the necessary packages by running the following command in your terminal or command prompt. Be sure to set-up an environment as necessary:
 
       pip install python-dotenv
+   
       pip install azure-identity azure-storage-blob
 
 ## Usage
