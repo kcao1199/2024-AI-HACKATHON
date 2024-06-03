@@ -1,6 +1,5 @@
 # 2024-AI-HACKATHON
-
-# ETL Pipeline for Dataset Extraction, Transformation, and Loading into Redshift
+# Team PawsitiveAI
 
 This repository contains the Python scripts and files required to build the AI Search solution as part of the 2024 AI Hack-a-thon challenge. The AI Search solution is designed to utilize public data sources to better ingest, process, and provide insightful knowlege management system for federal and state agencies, schools, businesses, and non-profit. 
 
