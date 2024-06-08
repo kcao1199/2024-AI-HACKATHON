@@ -19,7 +19,7 @@ app = Flask(__name__)
 load_dotenv(index.env)
 search_endpoint = os.getenv('service_endpoint')
 search_key = os.getenv('query_key')
-search_index = os.getenv('wichackversion-fine-tuned')
+search_index = os.getenv('service_name')
 connection_string = os.getenv('connection_string')
 container_name = os.getenv('container_name')
 
