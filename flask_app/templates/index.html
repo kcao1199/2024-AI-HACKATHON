@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovSync Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            flex: 1; /* Take remaining width */
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px; /* Increased margin for better spacing */
+            box-sizing: border-box;
+        }
+
+        .clear-button {
+            background-color: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            margin-left: 10px; /* Add space between input and button */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-button:hover {
+            background-color: #aaa;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #searchResults {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin-bottom: 10px; /* Increased margin for better spacing */
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        nav ol {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ol li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ol li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px; /* Increased font size for better visibility */
+        }
+
+        nav ol li a:hover {
+            text-decoration: underline; /* Underline on hover for better feedback */
+        }
+        
+        .box {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Increased margin for better spacing */
+        }
+
+        p {
+            color: #333;
+            line-height: 1.5; /* Increased line height for better readability */
+            margin: 0; /* Remove default margin */
+        }
+    </style>
+</head>
+<body>
+    <nav aria-label="Breadcrumb">
+        <ol>
+            <li><a id="homeLink" href="/">Home</a></li>
+            <li><a href="/about">About GovSync</a></li>
+        </ol>
+    </nav>
+    
+    <div class="container">
+        <h1>GovSync Search Engine</h1>
+        <form id="searchForm" aria-label="Search Form">
+            <div class="search-container">
+                <input type="text" id="searchInput" aria-label="Search Input" placeholder="Enter your search query...">
+                <button type="button" class="clear-button" onclick="clearSearch()">Clear</button>
+            </div>
+            <button type="submit" aria-label="Submit Search">Search</button>
+        </form>
+        <div id="searchResults" aria-live="polite" role="status"></div>
+    </div>
+
+    <div>
+    <h2>How Does the GovSync App Works</h2>
+    <p>
+        The GovSync Search App allows you to search through multiple databases to find relevant information. Simply follow these steps:
+    </p>
+    <ul>
+        <li><strong>Enter Your Query:</strong><br>
+            Type your search query into the provided input field.</li>
+        <li><strong>Submit Your Search:</strong><br>
+            Click on the "Search" button to submit your query.</li>
+        <li><strong>View Search Results:</strong><br>
+            After submitting your query, the app will display the search results.</li>
+        <li><strong>Browse Through Results:</strong><br>
+            Browse through the search results to find the information you need.</li>
+    </ul>
+    <div class="clear-instructions">
+        <strong>Clear Your Search:</strong><br>
+        <p>To clear your search query, click the <span class="clear-button-instruction">"Clear"</span> button next to the search input field.</p>
+    </div>
+</div>
+
+    
+</body>
+<script>
+    function clearSearch() {
+        document.getElementById('searchInput').value = ''; // Clear the input field
+    }
+</script>
+</html>
+
