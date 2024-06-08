@@ -22,17 +22,21 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Create and start virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r requirements.txt
+
+      - name: Install dependencies
+        run: |
+          source venv/bin/activate
+          pip install -r flask_app/requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip . -x '*.git*' 'venv/*'
+          zip -r release.zip flask_app/* -x '*.git*' 'venv/*'
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
