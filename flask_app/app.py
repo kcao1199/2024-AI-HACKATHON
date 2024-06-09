@@ -59,9 +59,12 @@ def home():
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('q')
+    filter_field = request.args.get('filter_field')
+    filter_value = request.args.get('filter_value')
     
-    # Perform the search query
-    results = search_client.search(search_text=query)
+    # Perform the search query with filters
+    # Modify this part to apply your filters to the search query
+    results = search_client.search(search_text=query, filter_field=filter_field, filter_value=filter_value)
 
     # Prepare the response
     response = []
