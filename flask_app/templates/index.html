@@ -3,188 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GovSync Search Engine</title>
+    <title>About GovQuery</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('background.jpg');
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
         }
-        
+
         .container {
-            max-width: 600px;
-            margin: 100px auto;
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        h1, h2 {
+        h1 {
+            color: #333;
             text-align: center;
-            color: #333;
         }
 
-        .search-container {
-            display: flex;
-            align-items: center;
+        .breadcrumb {
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        input[type="text"] {
-            flex: 1; /* Take remaining width */
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px; /* Increased margin for better spacing */
-            box-sizing: border-box;
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
         }
 
-        .clear-button {
-            background-color: #ccc;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            padding: 12px;
-            font-size: 16px;
-            margin-left: 10px; /* Add space between input and button */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .breadcrumb a:hover {
+            text-decoration: underline;
         }
 
-        .clear-button:hover {
-            background-color: #aaa;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        #searchResults {
+        .project-summary {
             margin-top: 20px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        p {
+            color: #555;
+            line-height: 1.6;
         }
 
-        li {
-            padding: 10px;
-            margin-bottom: 10px; /* Increased margin for better spacing */
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .read-summary-button {
+            margin-bottom: 10px;
         }
 
-        nav {
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .search-container {
+            margin-top: 20px;
             text-align: center;
         }
 
-        nav ol {
+        .search-container input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+
+        .search-results ul {
             list-style-type: none;
-            margin: 0;
             padding: 0;
         }
 
-        nav ol li {
-            display: inline;
-            margin-right: 20px;
+        .search-results li {
+            background-color: #e9ecef;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
         }
 
-        nav ol li a {
-            color: #333;
+        .search-results li a {
+            color: #007bff;
             text-decoration: none;
+        }
+
+        .search-results li a:hover {
+            text-decoration: underline;
+        }
+
+        .clear-instructions {
+            margin-top: 20px;
+        }
+
+        .clear-button-instruction {
             font-weight: bold;
-            font-size: 18px; /* Increased font size for better visibility */
         }
 
-        nav ol li a:hover {
-            text-decoration: underline; /* Underline on hover for better feedback */
-        }
-        
-        .box {
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly darker semi-transparent white background */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 20px; /* Increased margin for better spacing */
+        .clear-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
         }
 
-        p {
-            color: #333;
-            line-height: 1.5; /* Increased line height for better readability */
-            margin: 0; /* Remove default margin */
+        .clear-button:hover {
+            background-color: #c82333;
         }
     </style>
-</head>
+    </head>
 <body>
-    <nav aria-label="Breadcrumb">
-        <ol>
-            <li><a id="homeLink" href="/">Home</a></li>
-            <li><a href="about.html">About GovSync</a></li> 
-        </ol>
-    </nav>    
-    
     <div class="container">
-        <h1>GovSync Search Engine</h1>
-        <form id="searchForm" aria-label="Search Form">
-            <div class="search-container">
-                <input type="text" id="searchInput" aria-label="Search Input" placeholder="Enter your search query...">
-                <button type="button" class="clear-button" onclick="clearSearch()">Clear</button>
+        <h1>About GovQuery</h1>
+
+        <div class="breadcrumb">
+            <ul>
+                <li><a id="homeLink" href="/">Home</a> / About GovQuery</li>
+            </ul>
+        </div>
+        
+        <button class="read-summary-button" onclick="speakSummary()">Read Summary</button>
+
+        <div class="project-summary">
+            <h2>Project Summary</h2>
+            <p>
+                GovQuery is an AI search engine designed for effective search, retrieval, and sharing of knowledge across government agencies, businesses, schools, and organizations.
+            </p>
+            <p>
+                With a background in public health and academia, we recognize the need for cross-agency collaboration. Agencies and organizations are often burdened with a large amount of documentation, versionings, and no effective knowledge management. GovQuery addresses this need by providing a search platform that integrates AI capabilities, such as natural language processing, entity recognition, and sentiment analysis to enhance the search experience.
+            </p>
+            <p>
+                The current dataset includes sources from CDC, Data.gov, NIH, WHO, and UNICEF, enabling users to search and retrieve up-to-date information on various topics, including public health, education, and community health. Fast and relevant search results and retrieval of files allow users to access comprehensive datasets, visualize data trends, and collaborate with stakeholders to drive informed decision-making.
+            </p>
+            <p>
+                GovQuery's goal is to empower users to analyze data effectively, share insights, and contribute to building a more informed, connected, and resilient community.
+            </p>
+        </div>
+
+        <div class="howdoesitwork">
+            <button class="read-summary-button" onclick="speakHowDoesItWork()">Read How Does It Work</button>
+            <h2>How Does the GovQuery App Work?</h2>
+            <p>
+                The GovQuery Search App allows you to search through multiple databases to find relevant information. Simply follow these steps:
+            </p>
+            <ul>
+                <li><strong>Enter Your Query:</strong><br>Type your search query into the provided input field.</li>
+                <li><strong>Submit Your Search:</strong><br>Click on the "Search" button to submit your query.</li>
+                <li><strong>View Search Results:</strong><br>After submitting your query, the app will display the search results.</li>
+                <li><strong>Browse Through Results:</strong><br>Browse through the search results to find the information you need.</li>
+            </ul>
+            <div class="clear-instructions">
+                <strong>Clear Your Search:</strong><br>
+                <p>To clear your search query, click the <span class="clear-button-instruction">"Clear"</span> button next to the search input field.</p>
             </div>
-            <button type="submit" aria-label="Submit Search">Search</button>
-        </form>
-        <div id="searchResults" aria-live="polite" role="status"></div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search-query" placeholder="Enter your search query...">
+            <button onclick="performSearch()">Search</button>
+            <button class="clear-button" onclick="clearSearch()">Clear</button>
+        </div>
+
+        <div class="search-results" id="search-results"></div>
     </div>
 
-    <div>
-    <h2>How Does the GovSync App Works</h2>
-    <p>
-        The GovSync Search App allows you to search through multiple databases to find relevant information. Simply follow these steps:
-    </p>
-    <ul>
-        <li><strong>Enter Your Query:</strong><br>
-            Type your search query into the provided input field.</li>
-        <li><strong>Submit Your Search:</strong><br>
-            Click on the "Search" button to submit your query.</li>
-        <li><strong>View Search Results:</strong><br>
-            After submitting your query, the app will display the search results.</li>
-        <li><strong>Browse Through Results:</strong><br>
-            Browse through the search results to find the information you need.</li>
-    </ul>
-    <div class="clear-instructions">
-        <strong>Clear Your Search:</strong><br>
-        <p>To clear your search query, click the <span class="clear-button-instruction">"Clear"</span> button next to the search input field.</p>
-    </div>
-</div>
+    <script>
+        document.getElementById('search-query').addEventListener('keyup', function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                performSearch();
+            }
+        });
 
-    
-</body>
-<script>
-    function clearSearch() {
-        document.getElementById('searchInput').value = ''; // Clear the input field
+        function performSearch() {
+            const query = document.getElementById('search-query').value;
+
+            if (!query) {
+                alert("Please enter a search query.");
+                return;
+            }
+
+            fetch(`/search?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById('search-results');
+                    resultsContainer.innerHTML = "";
+
+                    if (data.length === 0) {
+                        resultsContainer.innerHTML = "<p>No results found.</p>";
+                        return;
+                    }
+
+                    const resultsList = document.createElement('ul');
+
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = "#";
+                        link.textContent = item.name;
+                        link.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            downloadFile(item.path);
+                        });
+                        listItem.appendChild(link);
+
+                        const details = document.createElement('div');
+                        details.innerHTML = `
+                            <p>Sentiment: ${item.sentiment_label}</p>
+                            <p>Keyphrases: ${item.keyphrases.join(', ')}</p>
+                            <p>Organizations: ${item.organizations.join(', ')}</p>
+                            <p>Locations: ${item.locations.join(', ')}</p>
+                        `;
+                        listItem.appendChild(details);
+
+                        resultsList.appendChild(listItem);
+                    });
+
+                    resultsContainer.appendChild(resultsList);
+                })
+                .catch(error => {
+                    console.error("Error fetching search results:", error);
+                });
+        }
+
+        function clearSearch() {
+            document.getElementById('search-query').value = '';
+        }
+
+        function speakSummary() {
+            const projectSummaryText = document.querySelector('.project-summary').innerText;
+            const utterance = new SpeechSynthesisUtterance(projectSummaryText);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakHowDoesItWork() {
+            const howDoesItWorkText = document.querySelector('.howdoesitwork').innerText;
+            const utterance = new SpeechSynthesisUtterance(howDoesItWorkText);
+            window.speechSynthesis.speak(utterance);
+        }
+        function downloadFile(path) {
+        fetch(`/get-file?path=${path}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', path.split('/').pop());
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error downloading file:', error);
+            });
     }
-</script>
+    </script>
+</body>
 </html>
-

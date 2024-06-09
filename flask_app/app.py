@@ -1,77 +1,89 @@
+# Create their own index.env file: You need to create an index.env file in the same directory as the Flask application, containing their Azure-related environment variables (service_endpoint, query_key, service_name, connection_string, container_name).
+# Set up Azure services: You need to set up Azure Search and Azure Blob Storage services, and obtain the necessary credentials and endpoint URLs.
+# Install Python dependencies: You need to install the required Python dependencies (Flask, python-dotenv, azure-core, azure-search-documents, azure-storage-blob) using pip.
+# Run the Flask application: You can then run the Flask application by executing the script, which will start the web server and make the application accessible through a web browser.
+
 import os
-from flask import Flask, render_template  # Import the Flask class and the render_template function
+from flask import Flask, render_template, request, jsonify, send_file
 from dotenv import load_dotenv
-
-#pip install azure-search-documents 
-#pip install python-dotenv
-#pip install azure-identity azure-storage-blob
-#pip install flask azure-search-documents azure-storage-blob
-
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.storage.blob import BlobServiceClient, generate_blob_sas, BlobSasPermissions
 from datetime import datetime, timedelta
 
-# Initialize the Flask application by creating an instance of the Flask class
+# Load environment variables from the specified .env file
+load_dotenv('index.env')  # Ensure the correct filename is specified
+
+# Initialize the Flask application
 app = Flask(__name__)
 
-# Azure Search constants
-load_dotenv(index.env)
+# Azure Search and Storage configuration
 search_endpoint = os.getenv('service_endpoint')
 search_key = os.getenv('query_key')
 search_index = os.getenv('service_name')
 connection_string = os.getenv('connection_string')
 container_name = os.getenv('container_name')
 
-# Initialize 
-search_client = SearchClient(endpoint=search_service_endpoint, index_name=search_index_name, credential=AzureKeyCredential(search_api_key))
+# Ensure all necessary environment variables are loaded
+if not all([search_endpoint, search_key, search_index, connection_string, container_name]):
+    raise ValueError("One or more environment variables are missing.")
+
+# Initialize the Azure Search client
+search_client = SearchClient(endpoint=search_endpoint, index_name=search_index, credential=AzureKeyCredential(search_key))
+
+# Initialize the Azure Blob Service client
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
 # Define the route for the home page
-@app.route('/')  # This decorator associates the URL path '/' with the home function
+@app.route('/')
 def home():
-    # Render the index.html template from the templates directory and return it as the response
     return render_template('index.html')
 
+# Define the route for the search functionality
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('q')
     
-    # Perform the search
+    # Perform the search query
     results = search_client.search(search_text=query)
 
     # Prepare the response
     response = []
     for result in results:
         item = {
-            "name": result['metadata_storage_name'],
+            "name": result['metadata_storage_name'] if 'metadata_storage_name' in result else 'N/A',
+            "sentiment_label": result['sentiment'] if 'sentiment' in result else 'N/A',
+            "keyphrases": result['keyphrases'][:5] if 'keyphrases' in result else [],
+            "organizations": result['organizations'][:5] if 'organizations' in result else [],
+            "locations": result['locations'][:5] if 'locations' in result else [],
             "path": result['metadata_storage_path']
         }
         response.append(item)
     
     return jsonify(response)
 
-"""@app.route('/get-file-url', methods=['GET'])
-def get_file_url():
+# Define the route to get a file
+@app.route('/get-file', methods=['GET'])
+def get_file():
     file_path = request.args.get('path')
     
-    # Extract container and blob name from the file path
-    container_client = blob_service_client.get_container_client(container_name)
+    # Validate the file path
+    if not file_path:
+        return jsonify({"error": "File path is required"}), 400
     
-    # Generate a SAS token for secure access
-    sas_token = generate_blob_sas(
-        account_name=blob_service_client.account_name,
-        container_name=container_name,
-        blob_name=file_path,
-        account_key=blob_service_client.credential.account_key,
-        permission=BlobSasPermissions(read=True),
-        expiry=datetime.utcnow() + timedelta(hours=1)
-    )
+    # Extract the blob name from the file path
+    blob_name = file_path.split('/')[-1]
     
-    blob_url = f"https://{blob_service_client.account_name}.blob.core.windows.net/{container_name}/{file_path}?{sas_token}"
+    # Get the blob client
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
     
-    return jsonify({"url": blob_url})"""
+    # Download the blob content
+    stream = blob_client.download_blob()
+    file_content = stream.readall()
 
-# Check if this script is being run directly (not imported as a module)
+    # Return the file as a downloadable response
+    return send_file(BytesIO(file_content), as_attachment=True, download_name=blob_name)
+
+# Check if the script is being run directly (not imported as a module)
 if __name__ == '__main__':
-    # Run the Flask application with debug mode enabled
-    app.run(debug=True)  # Debug mode allows for automatic reloading and detailed error messages
+    app.run(debug=True)
