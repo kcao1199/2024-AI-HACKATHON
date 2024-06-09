@@ -29,6 +29,22 @@ search_client = SearchClient(endpoint=search_endpoint, index_name=search_index, 
 # Initialize the Azure Blob Service client
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
 
+# Pre-processing of results
+# List of nonsense phrases
+unwanted_phrases = [
+    "Number Percent",
+    "SmartFind Flu ChatBot",
+    # Add more unwanted phrases here
+]
+
+# Function to filter unwanted keyphrases
+def filter_keyphrases(keyphrases):
+    # Create a combined regex pattern for all unwanted phrases
+    pattern = re.compile(r'\b(?:' + '|'.join(re.escape(phrase) for phrase in unwanted_phrases) + r')\b', re.IGNORECASE)
+    
+    # Filter out keyphrases that contain any of the unwanted phrases
+    return [phrase for phrase in keyphrases if not pattern.search(phrase)]
+
 # Define the route for the home page
 @app.route('/')
 def home():
