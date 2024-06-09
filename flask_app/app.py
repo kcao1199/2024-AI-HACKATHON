@@ -1,18 +1,13 @@
-# Create their own index.env file: You need to create an index.env file in the same directory as the Flask application, containing their Azure-related environment variables (service_endpoint, query_key, service_name, connection_string, container_name).
-# Set up Azure services: You need to set up Azure Search and Azure Blob Storage services, and obtain the necessary credentials and endpoint URLs.
-# Install Python dependencies: You need to install the required Python dependencies (Flask, python-dotenv, azure-core, azure-search-documents, azure-storage-blob) using pip.
-# Run the Flask application: You can then run the Flask application by executing the script, which will start the web server and make the application accessible through a web browser.
-
 import os
 from flask import Flask, render_template, request, jsonify, send_file
 from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
-from azure.storage.blob import BlobServiceClient, generate_blob_sas, BlobSasPermissions
-from datetime import datetime, timedelta
+from azure.storage.blob import BlobServiceClient
+from io import BytesIO
 
 # Load environment variables from the specified .env file
-load_dotenv('index.env')  # Ensure the correct filename is specified
+load_dotenv('index.env')
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -50,13 +45,16 @@ def search():
     # Prepare the response
     response = []
     for result in results:
+        blob_name = result['metadata_storage_name'] if 'metadata_storage_name' in result else 'N/A'
+        blob_url = f"https://{os.getenv('storage_account_name')}.blob.core.windows.net/{container_name}/{blob_name}"
+        
         item = {
-            "name": result['metadata_storage_name'] if 'metadata_storage_name' in result else 'N/A',
+            "name": blob_name,
             "sentiment_label": result['sentiment'] if 'sentiment' in result else 'N/A',
             "keyphrases": result['keyphrases'][:5] if 'keyphrases' in result else [],
             "organizations": result['organizations'][:5] if 'organizations' in result else [],
             "locations": result['locations'][:5] if 'locations' in result else [],
-            "path": result['metadata_storage_path']
+            "path": blob_url
         }
         response.append(item)
     
