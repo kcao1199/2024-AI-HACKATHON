@@ -8,8 +8,10 @@ This repository contains the Python scripts and files required to build the "Gov
 The AI Search solution consists of the following main components:
 
 1. `upload_docs.py`: Python script responsible for uploading dataset and data files from various data sources. This script upload data files in various formats such as CSV, JSON, PPT, PDF, PNG, etc. into an Azure storage account's blob container.
-
-2. `AI_search.py`: Python script that initializes the Search solution.
+2. `storage.env` and `index.env` are empty environmental files that you need to add your Azure credentials, URI, and API keys to in order to run the python scripts.
+3. `flask_app`:
+   ** Python script that contains Flask app that accept search queries, perform search with filters, and return results.
+5. 
  
 ## Prerequisites
 
