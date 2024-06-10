@@ -24,7 +24,7 @@ To run the Python scripts, ensure that you have the following prerequisites set 
 
 1. Python 3.x installed on your system. [Download Python](https://www.python.org/downloads/)
 2. **Azure CLI** configuration. [Install Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos)
-3. Required Python packages installed. You can install the necessary packages by running the following command in your terminal or command prompt. Be sure to set up an environment as necessary:
+3. Required Python packages installed. You can install the necessary packages by running the following command in your terminal or command prompt. Be sure to set up an environment as necessary
 
 ## Installation
 
@@ -55,8 +55,6 @@ To run the Python scripts, ensure that you have the following prerequisites set 
 4. Monitor the console output for any errors or log messages during the execution of the scripts. 
 5. **Access the Web Interface**:
     Open your web browser and navigate to the URL provided by the Flask server (typically `http://127.0.0.1:5000`) to access the search interface.
-
-Certainly! Here's an expanded "Troubleshooting" section:
 
 ### Troubleshooting
 
