@@ -1,3 +1,8 @@
+# Create their own index.env file: You need to create an index.env file in the same directory as the Flask application, containing their Azure-related environment variables (service_endpoint, query_key, service_name, connection_string, container_name).
+# Set up Azure services: You need to set up Azure Search and Azure Blob Storage services, and obtain the necessary credentials and endpoint URLs.
+# Install Python dependencies: You need to install the required Python dependencies (Flask, python-dotenv, azure-core, azure-search-documents, azure-storage-blob) using pip.
+# Run the Flask application: You can then run the Flask application by executing the script, which will start the web server and make the application accessible through a web browser.
+
 import os
 from flask import Flask, render_template, request, jsonify, send_file
 from dotenv import load_dotenv
@@ -7,7 +12,7 @@ from azure.storage.blob import BlobServiceClient
 from io import BytesIO
 
 # Load environment variables from the specified .env file
-load_dotenv('index.env')
+load_dotenv('../index.env')
 
 # Initialize the Flask application
 app = Flask(__name__)
