@@ -14,11 +14,10 @@ The AI Search solution consists of the following main components:
    * `app.py`: Python script that contains Flask app that accepts search queries, performs search with filters, and returns results.
    * `/template` directory contains the html format(s)
 ## Features
+![alt text](https://github.com/kcao1199/2024-AI-HACKATHON/blob/main/Architecture.PNG)
 * Ingest data from multiple formats: CSV, JSON, PPT, PDF, PNG, etc.
 * Perform indexing and enrichment of documents for efficient querying.
 * Provide a user-friendly web interface for search queries with filters.
-
-![alt text](https://github.com/kcao1199/2024-AI-HACKATHON/blob/main/Architecture.PNG)
 
 ## Prerequisites
 
