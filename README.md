@@ -18,6 +18,8 @@ The AI Search solution consists of the following main components:
 * Perform indexing and enrichment of documents for efficient querying.
 * Provide a user-friendly web interface for search queries with filters.
 
+![alt text](https://github.com/kcao1199/2024-AI-HACKATHON/blob/main/Architecture.PNG)
+
 ## Prerequisites
 
 To run the Python scripts, ensure that you have the following prerequisites set up:
