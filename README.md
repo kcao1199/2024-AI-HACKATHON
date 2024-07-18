@@ -1,7 +1,7 @@
 # 2024-AI-HACKATHON
 # Team PawsitiveAI
 
-This repository contains the Python scripts and files required to build the "GovQuery Search" - an AI Search solution as part of the 2024 AI Hack-a-thon challenge. The AI Search solution is designed to utilize public data sources to better ingest, process, and provide insightful knowdlege management system for federal and state agencies, schools, businesses, and non-profit. 
+This repository contains the Python scripts and files required to build the "GovQuery Search" - an AI Search solution as part of the 2024 AI Hack-a-thon challenge. The AI Search solution is designed to utilize public data sources to better ingest, process, and provide insightful knowledge management system for federal and state agencies, schools, businesses, and non-profit. 
 
 ## Overview
 
